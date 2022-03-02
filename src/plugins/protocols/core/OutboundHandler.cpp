@@ -593,6 +593,16 @@ std::optional<std::pair<QString, IOConnectionSettings>> DeserializeSS(const QStr
         const auto method = userInfo.mid(0, userInfoSp);
         server.method = method;
         server.password = userInfo.mid(userInfoSp + 1);
+        auto xQuery = QUrlQuery(x);
+        QString pluginData = QUrl::fromPercentEncoding(xQuery.queryItemValue("plugin").toUtf8());
+        int pluginOptsPos = pluginData.indexOf(';');
+        if (pluginOptsPos < 0) {
+            server.plugin = pluginData;
+        } else {
+            server.plugin = pluginData.mid(0, pluginOptsPos);
+            server.pluginOpts = pluginData.mid(pluginOptsPos + 1);
+        }
+
     }
 
     d_name = QUrl::fromPercentEncoding(d_name.toUtf8());

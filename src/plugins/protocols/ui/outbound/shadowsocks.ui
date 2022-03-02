@@ -63,6 +63,34 @@
      </item>
     </widget>
    </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_23">
+     <property name="text">
+      <string>Plugin</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QLineEdit" name="ss_pluginTxt">
+     <property name="placeholderText">
+      <string notr="true">Plugin</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="label_24">
+     <property name="text">
+      <string>PluginOpts</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QLineEdit" name="ss_pluginOptsTxt">
+     <property name="placeholderText">
+      <string notr="true">PluginOpts</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <resources/>

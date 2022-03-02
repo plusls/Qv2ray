@@ -14,6 +14,8 @@ const QvPluginMetadata V2RayCorePluginClass::GetMetadata() const
         u"V2Ray v5 Support"_qs, u"Moody"_qs, PluginId{ u"builtin_v2ray5_support"_qs }, u"V2Ray v5 kernel support"_qs,
 #elif V2RayCoreType == CORETYPE_V2RayGo
         u"V2Ray-Go Support"_qs, u"Moody"_qs, PluginId{ u"builtin_v2raygo_support"_qs }, u"V2Ray-Go kernel support"_qs,
+#elif V2RayCoreType == CORETYPE_V2RaySager
+        u"V2Ray Sager Support"_qs, u"Moody"_qs, PluginId{ u"builtin_sager_support"_qs }, u"V2Ray Sager kernel support"_qs,
 #else
 #error Unexpected
 #endif
@@ -72,6 +74,19 @@ QList<KernelFactory> V2RayKernelInterface::PluginKernels() const
                               << u"socks"_qs << u"trojan"_qs << u"vmess"_qs;
     factories << v2ray5;
 #endif
+
+#if V2RayCoreType == CORETYPE_V2RaySager
+    Qv2rayPlugin::Kernel::KernelFactory v2raySager;
+    v2raySager.Capabilities.setFlag(Qv2rayPlugin::Kernel::KERNELCAP_ROUTER);
+    v2raySager.Id = v2ray_sager_kernel_id;
+    v2raySager.Name = u"V2Ray v5"_qs;
+    v2raySager.Create = std::function{ []() { return std::make_unique<V2RaySagerKernel>(); } };
+    v2raySager.SupportedProtocols << u"blackhole"_qs << u"dns"_qs << u"freedom"_qs     //
+                              << u"http"_qs << u"loopback"_qs << u"shadowsocks"_qs //
+                              << u"socks"_qs << u"trojan"_qs << u"vmess"_qs;
+    factories << v2raySager;
+#endif
+
     return factories;
 }
 

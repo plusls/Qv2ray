@@ -56,7 +56,7 @@ void V2RayKernelSettings::on_selectVAssetBtn_clicked()
 
 void V2RayKernelSettings::on_checkVCoreSettings_clicked()
 {
-#if V2RayCoreType == CORETYPE_V2Ray5
+#if V2RayCoreType == CORETYPE_V2Ray5 || V2RayCoreType == CORETYPE_V2RaySager
     const auto &[result, msg] = ValidateKernel(settingsObject.CorePath, settingsObject.AssetsPath, { u"version"_qs });
 #else
     const auto &[result, msg] = ValidateKernel(settingsObject.CorePath, settingsObject.AssetsPath, { u"--version"_qs });

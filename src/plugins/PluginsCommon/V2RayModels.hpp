@@ -287,7 +287,10 @@ namespace Qv2ray::Models
     {
         Bindable<QString> method{ u"aes-256-gcm"_qs };
         Bindable<QString> password;
-        QJS_JSON(P(method, password))
+        Bindable<QString> plugin;
+        Bindable<QString> pluginOpts;
+        Bindable<QList<QString>> pluginArgs;
+        QJS_JSON(P(method, password, plugin, pluginOpts, pluginArgs))
     };
 
     // VMess Server
