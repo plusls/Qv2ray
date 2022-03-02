@@ -5,6 +5,7 @@
 #include "common/CommonHelpers.hpp"
 #include "core/V2RayAPIStats.hpp"
 
+#include <QCoreApplication>
 #include <QJsonDocument>
 #include <QProcess>
 
@@ -73,6 +74,32 @@ bool V2RaySagerKernel::PrepareConfigurations()
     return true;
 }
 
+static void addCurrentPath(QProcessEnvironment &env)
+{
+#ifdef Q_OS_WINDOWS
+#define PATH_SPLITTER u";"_qs
+#else
+#define PATH_SPLITTER u":"_qs
+#endif
+
+    QString pathStr = env.value(u"PATH"_qs);
+    if (pathStr.size())
+    {
+        pathStr = PATH_SPLITTER + pathStr;
+    }
+    QString currentPath = QDir::currentPath();
+    QString appPath = QCoreApplication::applicationDirPath();
+    if (currentPath != appPath)
+    {
+        pathStr = currentPath + PATH_SPLITTER + appPath + pathStr;
+    }
+    else
+    {
+        pathStr = currentPath + pathStr;
+    }
+    env.insert(u"PATH"_qs, pathStr);
+}
+
 void V2RaySagerKernel::Start()
 {
     Q_ASSERT_X(!kernelStarted, Q_FUNC_INFO, "Kernel state mismatch.");
@@ -81,6 +108,7 @@ void V2RaySagerKernel::Start()
 
     auto env = QProcessEnvironment::systemEnvironment();
     env.insert(u"v2ray.location.asset"_qs, settings.AssetsPath);
+    addCurrentPath(env);
     vProcess->setProcessEnvironment(env);
     vProcess->setProcessChannelMode(QProcess::MergedChannels);
     vProcess->start(settings.CorePath, { u"run"_qs, u"-c"_qs, configFilePath }, QIODevice::ReadWrite | QIODevice::Text);
@@ -137,6 +165,7 @@ std::optional<QString> V2RaySagerKernel::ValidateConfig(const QString &path)
         // Append assets location env.
         auto env = QProcessEnvironment::systemEnvironment();
         env.insert(u"v2ray.location.asset"_qs, settings.AssetsPath);
+        addCurrentPath(env);
 
         QProcess process;
         process.setProcessEnvironment(env);
