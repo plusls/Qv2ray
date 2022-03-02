@@ -73,12 +73,8 @@ jobs:
         configurePreset: 'ninja-multi-vcpkg'
         buildPreset: 'ninja-multi-vcpkg-release'
 
-    - name: Install
-      run: |
-        cd builds/RelWithDebInfo
-        cmake --install .
     - name: Generate 7zip
-      run: cd builds/RelWithDebInfo && 7z a ../Qv2ray.7z -- ./Qv2ray
+      run: 7z a Qv2ray.7z -- ./Qv2ray
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2.3.1
