@@ -13,3 +13,6 @@
 [submodule "src/plugins/routingA/core"]
 	path = src/plugins/routingA/core
 	url = https://github.com/moodyhunter/libRoutingA.git
+[submodule "vcpkg"]
+	path = vcpkg
+	url = https://github.com/microsoft/vcpkg.git

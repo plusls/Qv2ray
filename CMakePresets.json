@@ -1,0 +1,58 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 21,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "ninja-multi-vcpkg",
+      "displayName": "Ninja Multi-Config",
+      "description": "Configure with vcpkg toolchain and generate Ninja project files for all configurations",
+      "binaryDir": "${sourceDir}/builds/${presetName}",
+      "generator": "Ninja Multi-Config",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": {
+          "type": "FILEPATH",
+          "value": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+        },
+        "CMAKE_INSTALL_PREFIX": "Qv2ray",
+        "QV2RAY_DEFAULT_VASSETS_PATH": "./core",
+        "QV2RAY_DEFAULT_VCORE_PATH": "./core/v2ray",
+        "BUILD_TESTING": "OFF",
+        "USE_SYSTEM_LIBUV": "OFF",
+        "USE_SYSTEM_UVW": "OFF",
+        "BUILD_SHARED_LIBS": "OFF"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "ninja-multi-vcpkg-debug",
+      "configurePreset": "ninja-multi-vcpkg",
+      "displayName": "Build ninja-multi-vcpkg-debug",
+      "description": "Build ninja-multi-vcpkg Debug configuration",
+      "configuration": "Debug"
+    },
+    {
+      "name": "ninja-multi-vcpkg-release",
+      "configurePreset": "ninja-multi-vcpkg",
+      "displayName": "Build ninja-multi-vcpkg-release",
+      "description": "Build ninja-multi-vcpkg Release configuration",
+      "configuration": "RelWithDebInfo"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "ninja-multi-vcpkg-debug",
+      "configurePreset": "ninja-multi-vcpkg",
+      "configuration": "Debug"
+    },
+    {
+      "name": "ninja-multi-vcpkg-release",
+      "configurePreset": "ninja-multi-vcpkg",
+      "configuration": "RelWithDebInfo"
+    }
+  ]
+}

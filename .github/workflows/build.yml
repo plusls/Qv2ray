@@ -21,8 +21,8 @@ defaults:
 jobs:
   build:
     env:
-      CC: ${{ matrix.config.cc }}
-      CXX: ${{ matrix.config.cxx }}
+      VCPKG_DEFAULT_TRIPLET: ${{ matrix.config.vcpkgTriplet }}
+
     name: '${{ matrix.config.name }}'
     runs-on: ${{ matrix.config.os }}
     strategy:
@@ -32,36 +32,27 @@ jobs:
         - {
             name: "Windows MSVC", artifact: "Windows",
             os: windows-latest,
-            cc: "cl.exe", cxx: "cl.exe",
-            arch: "win64_msvc2019_64",
-            has_msvc: true,
             has_release: true,
-            vcpkgTriplet: x64-windows
+            vcpkgTriplet: x64-windows,
           }
         - {
             name: "Ubuntu", artifact: "Linux",
             os: ubuntu-latest,
             has_release: false,
-            vcpkgTriplet: x64-linux
+            vcpkgTriplet: x64-linux,
           }
         - {
             name: "macOS", artifact: "macOS",
             os: macos-latest,
             has_release: true,
-            vcpkgTriplet: x64-osx
+            vcpkgTriplet: x64-osx,
           }
-
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         submodules: 'recursive'
 
-    - name: Install ninja-build tool
-      uses: seanmiddleditch/gha-setup-ninja@v3
-
-    - name: Install MSVC compiler
-      if: matrix.config.has_msvc
-      uses: ilammy/msvc-dev-cmd@v1
+    - uses: lukka/get-cmake@latest
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v2.14.0
@@ -72,38 +63,26 @@ jobs:
         setup-python: false
 
     - name: run-vcpkg
-      uses: lukka/run-vcpkg@v7.3
+      uses: lukka/run-vcpkg@v10.1
       with:
-        vcpkgArguments: protobuf openssl grpc libuv uvw
-        vcpkgGitCommitId: c69096659f49e2b1aca532ea5c2f8c135182519b
-        vcpkgTriplet: ${{ matrix.config.vcpkgTriplet }}
-  
-    - name: Build
-      run: |
-        mkdir build; cd build
-        cmake .. \
-          -DCMAKE_TOOLCHAIN_FILE=$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake \
-          -DCMAKE_BUILD_TYPE=Release \
-          -DCMAKE_INSTALL_PREFIX=Qv2ray \
-          -DQV2RAY_DEFAULT_VASSETS_PATH="./core" \
-          -DQV2RAY_DEFAULT_VCORE_PATH="./core/v2ray" \
-          -DBUILD_TESTING=OFF \
-          -DUSE_SYSTEM_LIBUV=OFF \
-          -DUSE_SYSTEM_UVW=OFF \
-          -DBUILD_SHARED_LIBS=OFF \
-          -GNinja
-        cmake --build . --parallel
+        vcpkgGitCommitId: b86c0c35b88e2bf3557ff49dc831689c2f085090
+        vcpkgJsonGlob: 'vcpkg.json'
+
+    - name: Run CMake+vcpkg+Ninja+CTest to generate/build/test.
+      uses: lukka/run-cmake@v10
+      with:
+        configurePreset: 'ninja-multi-vcpkg'
+        buildPreset: 'ninja-multi-vcpkg-release'
 
     - name: Install
       run: |
         cd build
         cmake --install .
-
     - name: Generate 7zip
       run: cd build && 7z a ../Qv2ray.7z -- ./Qv2ray
 
     - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v2.2.3
+      uses: actions/upload-artifact@v2.3.1
       with:
         name: Qv2ray-${{ github.sha }}-${{ matrix.config.artifact }}.7z
         path: Qv2ray.7z
