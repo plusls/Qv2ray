@@ -174,6 +174,14 @@ QString SerializeSS(const QString &name, const IOConnectionSettings &connection)
     url.setHost(connection.address);
     url.setPort(connection.port.from);
     url.setFragment(name);
+    if (server.plugin->size())
+    {
+        QString pluginData = QUrl::toPercentEncoding(server.plugin + ";" + server.pluginOpts);
+        QUrlQuery query{};
+        query.addQueryItem("plugin", pluginData);
+        url.setQuery(query);
+    }
+
     return url.toString(QUrl::ComponentFormattingOption::FullyEncoded);
 }
 
