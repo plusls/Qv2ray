@@ -85,6 +85,8 @@ jobs:
           -DCMAKE_TOOLCHAIN_FILE=$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake \
           -DCMAKE_BUILD_TYPE=Release \
           -DCMAKE_INSTALL_PREFIX=Qv2ray \
+          -DQV2RAY_DEFAULT_VASSETS_PATH="./core" \
+          -DQV2RAY_DEFAULT_VCORE_PATH="./core/v2ray"
           -DBUILD_TESTING=OFF \
           -DUSE_SYSTEM_LIBUV=OFF \
           -DUSE_SYSTEM_UVW=OFF \
