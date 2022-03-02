@@ -65,7 +65,6 @@ jobs:
     - name: run-vcpkg
       uses: lukka/run-vcpkg@v10.1
       with:
-        vcpkgGitCommitId: b86c0c35b88e2bf3557ff49dc831689c2f085090
         vcpkgJsonGlob: 'vcpkg.json'
 
     - name: Run CMake+vcpkg+Ninja+CTest to generate/build/test.
@@ -76,10 +75,10 @@ jobs:
 
     - name: Install
       run: |
-        cd build
+        cd builds/RelWithDebInfo
         cmake --install .
     - name: Generate 7zip
-      run: cd build && 7z a ../Qv2ray.7z -- ./Qv2ray
+      run: cd builds/RelWithDebInfo && 7z a ../Qv2ray.7z -- ./Qv2ray
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2.3.1

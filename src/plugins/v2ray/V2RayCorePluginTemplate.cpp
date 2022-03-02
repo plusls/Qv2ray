@@ -79,7 +79,7 @@ QList<KernelFactory> V2RayKernelInterface::PluginKernels() const
     Qv2rayPlugin::Kernel::KernelFactory v2raySager;
     v2raySager.Capabilities.setFlag(Qv2rayPlugin::Kernel::KERNELCAP_ROUTER);
     v2raySager.Id = v2ray_sager_kernel_id;
-    v2raySager.Name = u"V2Ray v5"_qs;
+    v2raySager.Name = u"V2Ray Sager"_qs;
     v2raySager.Create = std::function{ []() { return std::make_unique<V2RaySagerKernel>(); } };
     v2raySager.SupportedProtocols << u"blackhole"_qs << u"dns"_qs << u"freedom"_qs     //
                               << u"http"_qs << u"loopback"_qs << u"shadowsocks"_qs //
