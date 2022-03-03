@@ -14,10 +14,7 @@ class SSHOutboundEditor
     explicit SSHOutboundEditor(QWidget *parent = nullptr);
 
   public:
-    void Load() override
-    {
-        ssh.loadJson(settings);
-    }
+    void Load() override;
 
     void Store() override
     {
@@ -26,6 +23,9 @@ class SSHOutboundEditor
 
   protected:
     void changeEvent(QEvent *e) override;
+
+  private slots:
+    void on_textHostKeyAlgorithms_textChanged();
 
   private:
     Qv2ray::Models::SSHClientObject ssh;

@@ -19,46 +19,80 @@
      <property name="text">
       <string>User</string>
      </property>
-     <property name="textFormat">
-      <enum>Qt::PlainText</enum>
-     </property>
     </widget>
    </item>
    <item row="0" column="1">
-    <widget class="QLineEdit" name="textUser"/>
+    <widget class="QLineEdit" name="textUser" />
    </item>
    <item row="1" column="0">
     <widget class="QLabel" name="labelPassword">
      <property name="text">
       <string>Password</string>
      </property>
-     <property name="textFormat">
-      <enum>Qt::PlainText</enum>
-     </property>
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="QLineEdit" name="textPassword">
-     <property name="echoMode">
-      <enum>QLineEdit::PasswordEchoOnEdit</enum>
+    <widget class="QLineEdit" name="textPassword"></widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="labePrivateKey">
+     <property name="text">
+      <string>Private Key</string>
      </property>
     </widget>
    </item>
-   <item row="2" column="0">
-   <widget class="QLabel" name="labePrivateKey">
-    <property name="text">
-     <string>Private Key</string>
-    </property>
-    <property name="textFormat">
-     <enum>Qt::PlainText</enum>
-    </property>
-   </widget>
-  </item>
-  <item row="2" column="1">
-   <widget class="QLineEdit" name="textPrivateKey"/>
-  </item>
+   <item row="2" column="1">
+    <widget class="QPlainTextEdit" name="textPrivateKey"></widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="labelPublicKey">
+     <property name="text">
+      <string>Public Key</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QLineEdit" name="textPublicKey"></widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="labelClientVersion">
+     <property name="text">
+      <string>Client Version</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QLineEdit" name="textClientVersion"></widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="QLabel" name="labeHostKeyAlgorithms">
+     <property name="text">
+      <string>Host Key Algorithms</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1">
+    <widget class="QPlainTextEdit" name="textHostKeyAlgorithms"></widget>
+   </item>
+   <item row="6" column="0">
+    <widget class="QLabel" name="labeUserLevel">
+     <property name="text">
+      <string>User Level</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="1">
+    <widget class="QSpinBox" name="spinBoxUserLevel">
+     <property name="minimum">
+      <number>0</number>
+     </property>
+     <property name="value">
+      <number>0</number>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
- <resources/>
- <connections/>
+ <resources />
+ <connections />
 </ui>
