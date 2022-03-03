@@ -24,3 +24,9 @@ cmake-build-release/
 # OSS VSCode
 .vscode/
 .cache
+
+# build
+Qv2ray/
+6.2.2/
+builds/
+aqtinstall.log

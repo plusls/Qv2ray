@@ -1,6 +1,8 @@
 #pragma once
 
+#include "QvPlugin/Gui/QvGUIPluginInterface.hpp"
 #include "QvPlugin/Handlers/KernelHandler.hpp"
+#include "outbound/ssh.hpp"
 
 class QProcess;
 
@@ -27,6 +29,10 @@ class V2RaySagerKernel : public Qv2rayPlugin::Kernel::PluginKernel
     virtual KernelId GetKernelId() const override
     {
         return v2ray_sager_kernel_id;
+    }
+    static Qv2rayPlugin::Gui::Qv2rayGUIInterface::PluginEditorDescriptor GetOutboundEditors()
+    {
+        return { Qv2rayPlugin::Gui::Qv2rayGUIInterface::make_editor_info<SSHOutboundEditor>(u"ssh"_qs, u"SSH"_qs) };
     }
 
   signals:

@@ -7,7 +7,8 @@ using namespace V2RayPluginNamespace;
 
 const QvPluginMetadata V2RayCorePluginClass::GetMetadata() const
 {
-    return {
+    return
+    {
 #if V2RayCoreType == CORETYPE_V2Ray
         u"V2Ray v4 Support"_qs, u"Moody"_qs, PluginId{ u"builtin_v2ray_support"_qs }, u"V2Ray kernel support"_qs,
 #elif V2RayCoreType == CORETYPE_V2Ray5
@@ -82,8 +83,8 @@ QList<KernelFactory> V2RayKernelInterface::PluginKernels() const
     v2raySager.Name = u"V2Ray Sager"_qs;
     v2raySager.Create = std::function{ []() { return std::make_unique<V2RaySagerKernel>(); } };
     v2raySager.SupportedProtocols << u"blackhole"_qs << u"dns"_qs << u"freedom"_qs     //
-                              << u"http"_qs << u"loopback"_qs << u"shadowsocks"_qs //
-                              << u"socks"_qs << u"trojan"_qs << u"vmess"_qs;
+                                  << u"http"_qs << u"loopback"_qs << u"shadowsocks"_qs //
+                                  << u"socks"_qs << u"trojan"_qs << u"vmess"_qs << u"ssh"_qs;
     factories << v2raySager;
 #endif
 
@@ -97,7 +98,7 @@ QIcon GuiInterface::Icon() const
 
 QList<PLUGIN_GUI_COMPONENT_TYPE> GuiInterface::GetComponents() const
 {
-    return { GUI_COMPONENT_SETTINGS };
+    return { GUI_COMPONENT_SETTINGS, GUI_COMPONENT_OUTBOUND_EDITOR };
 }
 
 std::unique_ptr<Gui::PluginSettingsWidget> GuiInterface::GetSettingsWidget() const
@@ -112,7 +113,11 @@ Gui::Qv2rayGUIInterface::PluginEditorDescriptor GuiInterface::GetInboundEditors(
 
 Gui::Qv2rayGUIInterface::PluginEditorDescriptor GuiInterface::GetOutboundEditors() const
 {
+#if V2RayCoreType == CORETYPE_V2RaySager
+    return V2RaySagerKernel::GetOutboundEditors();
+#else
     return {};
+#endif
 }
 
 std::unique_ptr<Gui::PluginMainWindowWidget> GuiInterface::GetMainWindowWidget() const

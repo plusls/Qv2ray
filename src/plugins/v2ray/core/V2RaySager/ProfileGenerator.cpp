@@ -1,5 +1,6 @@
 #include "ProfileGenerator.hpp"
 
+#include "CoreModels.hpp"
 #include "QvPlugin/Utils/QJsonIO.hpp"
 #include "V2RayCorePluginTemplate.hpp"
 #include "V2RayModels.hpp"
@@ -292,11 +293,29 @@ void V2RaySagerProfileGenerator::ProcessOutboundConfig(const OutboundObject &out
             { u"port"_qs, out.outboundSettings.port.from },
         };
 
-        root[u"settings"_qs] = QJsonObject{ 
+        root[u"settings"_qs] = QJsonObject{
             { u"servers"_qs, QJsonArray{ singleServer } },
             { u"plugin"_qs, *ss.plugin },
             { u"pluginOpts"_qs, *ss.pluginOpts },
-            //{ u"pluginArgs"_qs, QJsonArray{ *ss.pluginArgs } },
+            { u"pluginArgs"_qs, QJsonArray::fromStringList(*ss.pluginArgs) },
+        };
+    }
+
+    if (out.outboundSettings.protocol == u"ssh"_qs)
+    {
+        Qv2ray::Models::SSHClientObject ssh;
+        ssh.loadJson(out.outboundSettings.protocolSettings);
+
+        root[u"settings"_qs] = QJsonObject{
+            { u"address"_qs, out.outboundSettings.address },
+            { u"port"_qs, out.outboundSettings.port.from },
+            { u"user"_qs, *ssh.user },
+            { u"password"_qs, *ssh.password },
+            { u"privateKey"_qs, *ssh.privateKey },
+            { u"publicKey"_qs, *ssh.publicKey },
+            { u"clientVersion"_qs, *ssh.clientVersion },
+            { u"hostKeyAlgorithms"_qs, QJsonArray::fromStringList(*ssh.hostKeyAlgorithms) },
+            { u"userLevel"_qs, *ssh.userLevel },
         };
     }
 

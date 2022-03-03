@@ -289,7 +289,7 @@ namespace Qv2ray::Models
         Bindable<QString> password;
         Bindable<QString> plugin;
         Bindable<QString> pluginOpts;
-        Bindable<QList<QString>> pluginArgs;
+        Bindable<QStringList> pluginArgs;
         QJS_JSON(P(method, password, plugin, pluginOpts, pluginArgs))
     };
 

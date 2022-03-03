@@ -62,7 +62,13 @@ function(qv2ray_internal_add_v2ray_plugin name classname classprefix)
     qv2ray_add_plugin(${name} Widgets
         INSTALL_PREFIX_MACOS "${CMAKE_INSTALL_PREFIX}/qv2ray.app/Contents/Resources/plugins"
         CLASS_NAME ${classname})
-
+    
+    file(GLOB OUTBOUND_FILES    
+        ${CMAKE_CURRENT_LIST_DIR}/ui/${classprefix}/outbound/*.ui
+        ${CMAKE_CURRENT_LIST_DIR}/ui/${classprefix}/outbound/*.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/ui/${classprefix}/outbound/*.hpp
+    )
+    
     target_sources(${name} PRIVATE
         ${PROTO_SOURCES} ${PROTO_HEADERS}
         ${CMAKE_CURRENT_LIST_DIR}/ui/w_V2RayKernelSettings.hpp
@@ -81,6 +87,8 @@ function(qv2ray_internal_add_v2ray_plugin name classname classprefix)
         ${CMAKE_CURRENT_LIST_DIR}/core/${classprefix}/Kernel.cpp
         ${CMAKE_CURRENT_LIST_DIR}/core/${classprefix}/ProfileGenerator.hpp
         ${CMAKE_CURRENT_LIST_DIR}/core/${classprefix}/ProfileGenerator.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/core/${classprefix}/CoreModels.hpp
+        ${OUTBOUND_FILES}
         )
 
     if(QV2RAY_V2RAY_PLUGIN_USE_PROTOBUF)
@@ -96,6 +104,7 @@ function(qv2ray_internal_add_v2ray_plugin name classname classprefix)
     target_include_directories(${name} PRIVATE ${CMAKE_CURRENT_LIST_DIR}/../PluginsCommon)
     target_include_directories(${name} PRIVATE ${PROTO_GENERATED_DIR})
     target_include_directories(${name} PRIVATE ${CMAKE_CURRENT_LIST_DIR}/core/${classprefix})
+    target_include_directories(${name} PRIVATE ${CMAKE_CURRENT_LIST_DIR}/ui/${classprefix})
     target_link_libraries(${name}
         PRIVATE
             Qt::Network
