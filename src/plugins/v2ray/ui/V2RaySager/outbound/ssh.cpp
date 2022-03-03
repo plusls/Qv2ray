@@ -9,7 +9,6 @@ SSHOutboundEditor::SSHOutboundEditor(QWidget *parent) : Qv2rayPlugin::Gui::Plugi
     ssh.privateKey.ReadWriteBind(textPrivateKey, "plainText", &QPlainTextEdit::textChanged);
     ssh.publicKey.ReadWriteBind(textPublicKey, "text", &QLineEdit::textEdited);
     ssh.clientVersion.ReadWriteBind(textClientVersion, "text", &QLineEdit::textEdited);
-    ssh.userLevel.ReadWriteBind(spinBoxUserLevel, "value", &QSpinBox::valueChanged);
 }
 
 void SSHOutboundEditor::Load()

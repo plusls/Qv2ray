@@ -13,7 +13,7 @@ namespace Qv2ray::Models
         Bindable<QString> publicKey;
         Bindable<QString> clientVersion;
         Bindable<QStringList> hostKeyAlgorithms;
-        Bindable<int> userLevel;
-        QJS_JSON(P(user, password, privateKey, publicKey, clientVersion, hostKeyAlgorithms, userLevel))
+        QJS_JSON(P(user, password, privateKey, publicKey, clientVersion, hostKeyAlgorithms))
     };
+
 }
