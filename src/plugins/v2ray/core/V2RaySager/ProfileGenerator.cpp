@@ -315,7 +315,22 @@ void V2RaySagerProfileGenerator::ProcessOutboundConfig(const OutboundObject &out
             { u"publicKey"_qs, *ssh.publicKey },
             { u"clientVersion"_qs, *ssh.clientVersion },
             { u"hostKeyAlgorithms"_qs, QJsonArray::fromStringList(*ssh.hostKeyAlgorithms) },
-            { u"userLevel"_qs, *ssh.userLevel },
+        };
+    }
+
+    if (out.outboundSettings.protocol == u"wireguard"_qs)
+    {
+        Qv2ray::Models::WireGuardObject wireguard;
+        wireguard.loadJson(out.outboundSettings.protocolSettings);
+
+        root[u"settings"_qs] = QJsonObject{
+            { u"address"_qs, out.outboundSettings.address },
+            { u"port"_qs, out.outboundSettings.port.from },
+            { u"localAddresses"_qs, QJsonArray::fromStringList(*wireguard.localAddresses) },
+            { u"peerPublicKey"_qs, *wireguard.peerPublicKey },
+            { u"preSharedKey"_qs, *wireguard.preSharedKey },
+            { u"privateKey"_qs, *wireguard.privateKey },
+            { u"mtu"_qs, *wireguard.mtu },
         };
     }
 

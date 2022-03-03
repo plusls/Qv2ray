@@ -25,6 +25,7 @@ const std::map<StatisticsObject::StatisticsType, QStringList> DefaultOutboundAPI
           u"trojan"_qs,
 #if V2RayCoreType == CORETYPE_V2RaySager
           u"ssh"_qs,
+          u"wireguard"_qs,
 #endif
       } },
     { StatisticsObject::DIRECT,

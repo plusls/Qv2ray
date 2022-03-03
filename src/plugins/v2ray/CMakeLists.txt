@@ -63,7 +63,7 @@ function(qv2ray_internal_add_v2ray_plugin name classname classprefix)
         INSTALL_PREFIX_MACOS "${CMAKE_INSTALL_PREFIX}/qv2ray.app/Contents/Resources/plugins"
         CLASS_NAME ${classname})
     
-    file(GLOB OUTBOUND_FILES    
+    file(GLOB OUTBOUND_FILES
         ${CMAKE_CURRENT_LIST_DIR}/ui/${classprefix}/outbound/*.ui
         ${CMAKE_CURRENT_LIST_DIR}/ui/${classprefix}/outbound/*.cpp
         ${CMAKE_CURRENT_LIST_DIR}/ui/${classprefix}/outbound/*.hpp

@@ -16,4 +16,13 @@ namespace Qv2ray::Models
         QJS_JSON(P(user, password, privateKey, publicKey, clientVersion, hostKeyAlgorithms))
     };
 
+    struct WireGuardObject
+    {
+        Bindable<QStringList> localAddresses;
+        Bindable<QString> peerPublicKey;
+        Bindable<QString> preSharedKey;
+        Bindable<QString> privateKey;
+        Bindable<int> mtu;
+        QJS_JSON(P(localAddresses, peerPublicKey, preSharedKey, privateKey, mtu))
+    };
 }

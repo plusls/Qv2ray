@@ -3,6 +3,7 @@
 #include "QvPlugin/Gui/QvGUIPluginInterface.hpp"
 #include "QvPlugin/Handlers/KernelHandler.hpp"
 #include "outbound/ssh.hpp"
+#include "outbound/wireguard.hpp"
 
 class QProcess;
 
@@ -32,7 +33,10 @@ class V2RaySagerKernel : public Qv2rayPlugin::Kernel::PluginKernel
     }
     static Qv2rayPlugin::Gui::Qv2rayGUIInterface::PluginEditorDescriptor GetOutboundEditors()
     {
-        return { Qv2rayPlugin::Gui::Qv2rayGUIInterface::make_editor_info<SSHOutboundEditor>(u"ssh"_qs, u"SSH"_qs) };
+        return {
+            Qv2rayPlugin::Gui::Qv2rayGUIInterface::make_editor_info<SSHOutboundEditor>(u"ssh"_qs, u"SSH"_qs),
+            Qv2rayPlugin::Gui::Qv2rayGUIInterface::make_editor_info<WireGuardOutboundEditor>(u"wireguard"_qs, u"WireGuard"_qs),
+        };
     }
 
   signals:

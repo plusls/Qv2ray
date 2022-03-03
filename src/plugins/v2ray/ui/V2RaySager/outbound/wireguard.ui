@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>WireGuardOutEditor</class>
+ <widget class="QWidget" name="WireGuardOutEditor">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>252</width>
+    <height>190</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QFormLayout" name="formLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="labelLocalAddresses">
+     <property name="text">
+      <string>Local Addresses</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QPlainTextEdit" name="textLocalAddresses" />
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="labelPeerPublicKey">
+     <property name="text">
+      <string>Peer Public Key</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QLineEdit" name="textPeerPublicKey"></widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="labePreSharedKey">
+     <property name="text">
+      <string>Pre Shared Key</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QLineEdit" name="textPreSharedKey"></widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="labelPrivateKey">
+     <property name="text">
+      <string>Private Key</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QLineEdit" name="textPrivateKey"></widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="labeMtu">
+     <property name="text">
+      <string>Mtu</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QSpinBox" name="spinBoxMtu">
+     <property name="minimum">
+      <number>0</number>
+     </property>
+     <property name="maximum">
+      <number>10000</number>
+     </property>
+     <property name="value">
+      <number>1500</number>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources />
+ <connections />
+</ui>
