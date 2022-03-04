@@ -38,6 +38,7 @@ class DnsSettingsWidget
     void on_dnsDisableCacheCB_stateChanged(int arg1);
     void on_dnsDisableFallbackCB_stateChanged(int arg1);
     void on_dnsQueryStrategyCB_currentTextChanged(const QString &arg1);
+    void on_concurrencyCB_stateChanged(int arg1);
 
   private:
     void updateColorScheme();

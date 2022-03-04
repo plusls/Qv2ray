@@ -60,8 +60,9 @@ namespace Qv2ray::Models
             Bindable<bool> SkipFallback{ false };
             Bindable<QList<QString>> domains;
             Bindable<QList<QString>> expectIPs;
+            Bindable<bool> concurrency{ true };
             QJS_COMPARE(V2RayDNSServerObject, QV2RAY_DNS_IS_COMPLEX_DNS, SkipFallback, port, address, domains, expectIPs);
-            QJS_JSON(P(QV2RAY_DNS_IS_COMPLEX_DNS, SkipFallback), F(address, port, domains, expectIPs))
+            QJS_JSON(P(QV2RAY_DNS_IS_COMPLEX_DNS, SkipFallback), F(address, port, domains, expectIPs, concurrency))
         };
 
         Bindable<QList<V2RayDNSServerObject>> servers;

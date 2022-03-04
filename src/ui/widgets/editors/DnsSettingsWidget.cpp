@@ -132,6 +132,7 @@ void DnsSettingsWidget::ProcessDnsPortEnabledState()
 void DnsSettingsWidget::ShowCurrentDnsServerDetails()
 {
     serverAddressTxt->setText((*dns.servers)[currentServerIndex].address);
+    concurrencyCB->setChecked((*dns.servers)[currentServerIndex].concurrency);
     //
     domainListTxt->setPlainText((*dns.servers)[currentServerIndex].domains->join('\n'));
     ipListTxt->setPlainText((*dns.servers)[currentServerIndex].expectIPs->join('\n'));
@@ -309,4 +310,8 @@ void DnsSettingsWidget::on_dnsDisableFallbackCB_stateChanged(int arg1)
 void DnsSettingsWidget::on_dnsQueryStrategyCB_currentTextChanged(const QString &arg1)
 {
     dns.queryStrategy = arg1;
+}
+
+void DnsSettingsWidget::on_concurrencyCB_stateChanged(int arg1) {
+    (*dns.servers)[currentServerIndex].concurrency = concurrencyCB->checkState() == Qt::Checked;
 }
