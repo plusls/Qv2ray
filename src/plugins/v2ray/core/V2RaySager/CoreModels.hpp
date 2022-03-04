@@ -22,7 +22,7 @@ namespace Qv2ray::Models
         Bindable<QString> peerPublicKey;
         Bindable<QString> preSharedKey;
         Bindable<QString> privateKey;
-        Bindable<int> mtu;
+        Bindable<int> mtu { 1420 };
         QJS_JSON(P(localAddresses, peerPublicKey, preSharedKey, privateKey, mtu))
     };
 }
