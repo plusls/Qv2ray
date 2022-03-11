@@ -18,6 +18,7 @@ class V2RaySagerKernel : public Qv2rayPlugin::Kernel::PluginKernel
 {
     Q_OBJECT
   public:
+    static bool v2rayVmessAeadDisabled;
     V2RaySagerKernel();
     ~V2RaySagerKernel();
 

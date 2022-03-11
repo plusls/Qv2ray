@@ -14,6 +14,8 @@ constexpr auto V2RAYPLUGIN_NO_API_ENV = "V2RAYPLUGIN_NO_API";
 
 using namespace V2RayPluginNamespace;
 
+bool V2RaySagerKernel::v2rayVmessAeadDisabled = false;
+
 V2RaySagerKernel::V2RaySagerKernel()
 {
     vProcess = new QProcess();
@@ -109,6 +111,11 @@ void V2RaySagerKernel::Start()
     auto env = QProcessEnvironment::systemEnvironment();
     env.insert(u"v2ray.location.asset"_qs, settings.AssetsPath);
     addCurrentPath(env);
+    if (v2rayVmessAeadDisabled)
+    {
+        env.insert(u"V2RAY_VMESS_AEAD_DISABLED"_qs, u"true"_qs);
+        
+    }
     vProcess->setProcessEnvironment(env);
     vProcess->setProcessChannelMode(QProcess::MergedChannels);
     vProcess->start(settings.CorePath, { u"run"_qs, u"-c"_qs, configFilePath }, QIODevice::ReadWrite | QIODevice::Text);

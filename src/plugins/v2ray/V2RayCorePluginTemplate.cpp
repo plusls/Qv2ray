@@ -84,7 +84,8 @@ QList<KernelFactory> V2RayKernelInterface::PluginKernels() const
     v2raySager.Create = std::function{ []() { return std::make_unique<V2RaySagerKernel>(); } };
     v2raySager.SupportedProtocols << u"blackhole"_qs << u"dns"_qs << u"freedom"_qs     //
                                   << u"http"_qs << u"loopback"_qs << u"shadowsocks"_qs //
-                                  << u"socks"_qs << u"trojan"_qs << u"vmess"_qs << u"ssh"_qs << u"wireguard"_qs;
+                                  << u"socks"_qs << u"trojan"_qs << u"vmess"_qs //
+                                  << u"vless"_qs << u"ssh"_qs << u"wireguard"_qs;
     factories << v2raySager;
 #endif
 

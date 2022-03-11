@@ -14,6 +14,7 @@
 #include "outbound/socksout.hpp"
 #include "outbound/trojan.hpp"
 #include "outbound/vmess.hpp"
+#include "outbound/vless.hpp"
 
 using namespace Qv2rayPlugin;
 
@@ -45,6 +46,7 @@ class ProtocolGUIInterface : public Gui::Qv2rayGUIInterface
     {
         return {
             make_editor_info<VmessOutboundEditor>("vmess", "VMess"),                   //
+            make_editor_info<VlessOutboundEditor>("vless", "Vless"),                   //
             make_editor_info<TrojanOutboundEditor>("trojan", "Trojan"),                //
             make_editor_info<ShadowsocksOutboundEditor>("shadowsocks", "Shadowsocks"), //
             make_editor_info<HttpOutboundEditor>("http", "HTTP"),                      //

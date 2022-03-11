@@ -298,9 +298,16 @@ namespace Qv2ray::Models
     struct VMessClientObject
     {
         Bindable<QString> id;
+        Bindable<int> alterId{ -1 };
         Bindable<QString> experiments;
         Bindable<QString> security{ u"auto"_qs };
-        QJS_JSON(F(id, security, experiments))
+        QJS_JSON(F(id, alterId, security, experiments))
+    };
+
+    struct VlessClientObject
+    {
+        Bindable<QString> id;
+        QJS_JSON(F(id))
     };
 
     struct TrojanClientObject

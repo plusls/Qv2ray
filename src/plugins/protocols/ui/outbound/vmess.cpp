@@ -24,5 +24,6 @@ void VmessOutboundEditor::Load()
 
     vmess.security.ReadWriteBind(securityCombo, "currentText", &QComboBox::currentIndexChanged);
     vmess.id.ReadWriteBind(idLineEdit, "text", &QLineEdit::textEdited);
+    vmess.alterId.ReadWriteBind(spinBoxAlterId, "value", &QSpinBox::valueChanged);
     vmess.experiments.ReadWriteBind(experimentsTxt, "text", &QLineEdit::textEdited);
 }

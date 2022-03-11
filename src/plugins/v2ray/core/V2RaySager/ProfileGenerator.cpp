@@ -4,7 +4,7 @@
 #include "QvPlugin/Utils/QJsonIO.hpp"
 #include "V2RayCorePluginTemplate.hpp"
 #include "V2RayModels.hpp"
-
+#include "Kernel.hpp"
 #include <QJsonDocument>
 
 constexpr auto DEFAULT_API_TAG = "qv2ray-api";
@@ -267,14 +267,38 @@ void V2RaySagerProfileGenerator::ProcessOutboundConfig(const OutboundObject &out
     {
         Qv2ray::Models::VMessClientObject serv;
         serv.loadJson(out.outboundSettings.protocolSettings);
-
+        int alterId = *serv.alterId;
+        if (alterId == -1) 
+        {
+            alterId = 0;
+            V2RaySagerKernel::v2rayVmessAeadDisabled = true;
+        } else {
+            V2RaySagerKernel::v2rayVmessAeadDisabled = false;
+        }
         QJsonObject singleServer{
             { u"address"_qs, out.outboundSettings.address },
             { u"port"_qs, out.outboundSettings.port.from },
             { u"users"_qs, QJsonArray{ QJsonObject{
                                { u"id"_qs, *serv.id },
+                               { u"alterId"_qs, alterId },
                                { u"security"_qs, *serv.security },
                                { u"experiments"_qs, *serv.experiments },
+                           } } },
+        };
+
+        root[u"settings"_qs] = QJsonObject{ { u"vnext"_qs, QJsonArray{ singleServer } } };
+    }
+
+    if (out.outboundSettings.protocol == u"vless"_qs)
+    {
+        Qv2ray::Models::VlessClientObject serv;
+        serv.loadJson(out.outboundSettings.protocolSettings);
+        QJsonObject singleServer{
+            { u"address"_qs, out.outboundSettings.address },
+            { u"port"_qs, out.outboundSettings.port.from },
+            { u"users"_qs, QJsonArray{ QJsonObject{
+                               { u"id"_qs, *serv.id },
+                               { u"encryption"_qs, u"none"_qs },
                            } } },
         };
 
