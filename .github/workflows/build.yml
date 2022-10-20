@@ -63,7 +63,7 @@ jobs:
         setup-python: false
 
     - name: run-vcpkg
-      uses: lukka/run-vcpkg@v10.1
+      uses: lukka/run-vcpkg@v10.5
       with:
         vcpkgJsonGlob: 'vcpkg.json'
 
